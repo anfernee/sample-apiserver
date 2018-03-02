@@ -30,7 +30,7 @@ import (
 	listers "k8s.io/sample-apiserver/pkg/client/listers/wardle/internalversion"
 )
 
-// Register registers a plugin
+// Register registers an admission plugin
 func Register(plugins *admission.Plugins) {
 	plugins.Register("BanFlunder", func(config io.Reader) (admission.Interface, error) {
 		return New()

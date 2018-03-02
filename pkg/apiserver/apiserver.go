@@ -101,6 +101,8 @@ func (cfg *Config) Complete() CompletedConfig {
 
 // New returns a new instance of WardleServer from the given config.
 func (c completedConfig) New() (*WardleServer, error) {
+	// CompleteConfig.New start a generic apiserver, with a name, and a delegate target.
+	// DelegationTarget allows composition of multiple API servers.
 	genericServer, err := c.GenericConfig.New("sample-apiserver", genericapiserver.EmptyDelegate)
 	if err != nil {
 		return nil, err
@@ -110,6 +112,7 @@ func (c completedConfig) New() (*WardleServer, error) {
 		GenericAPIServer: genericServer,
 	}
 
+	// Construct and Install API grou to apiserver
 	apiGroupInfo := genericapiserver.NewDefaultAPIGroupInfo(wardle.GroupName, registry, Scheme, metav1.ParameterCodec, Codecs)
 	apiGroupInfo.GroupMeta.GroupVersion = v1alpha1.SchemeGroupVersion
 	v1alpha1storage := map[string]rest.Storage{}
