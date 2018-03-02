@@ -37,7 +37,7 @@ func main() {
 	}
 
 	stopCh := genericapiserver.SetupSignalHandler()
-	options := server.NewWardleServerOptions(os.Stdout, os.Stderr)
+	options := server.NewWardleServerOptions()
 	cmd := server.NewCommandStartWardleServer(options, stopCh)
 	cmd.Flags().AddGoFlagSet(flag.CommandLine)
 	if err := cmd.Execute(); err != nil {

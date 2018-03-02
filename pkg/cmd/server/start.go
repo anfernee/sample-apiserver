@@ -18,7 +18,6 @@ package server
 
 import (
 	"fmt"
-	"io"
 	"net"
 
 	"github.com/spf13/cobra"
@@ -41,16 +40,11 @@ type WardleServerOptions struct {
 	RecommendedOptions *genericoptions.RecommendedOptions
 
 	SharedInformerFactory informers.SharedInformerFactory
-	StdOut                io.Writer
-	StdErr                io.Writer
 }
 
-func NewWardleServerOptions(out, errOut io.Writer) *WardleServerOptions {
+func NewWardleServerOptions() *WardleServerOptions {
 	o := &WardleServerOptions{
 		RecommendedOptions: genericoptions.NewRecommendedOptions(defaultEtcdPathPrefix, apiserver.Codecs.LegacyCodec(v1alpha1.SchemeGroupVersion)),
-
-		StdOut: out,
-		StdErr: errOut,
 	}
 
 	return o
